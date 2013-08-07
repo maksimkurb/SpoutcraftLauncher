@@ -16,9 +16,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
 		<keystore.path>${project.basedir}/src/main/resources/keystore.jks</keystore.path>
-		<keystore.alias>spoutdev</keystore.alias>
-		<keystore.keypass>unleashtheflow</keystore.keypass>
-		<keystore.storepass>unleashtheflow</keystore.storepass>
+		<keystore.alias>cakedev</keystore.alias>
+		<keystore.keypass>cakedev</keystore.keypass>
+		<keystore.storepass>cakedev</keystore.storepass>
 		<buildNumber>0</buildNumber>
 	</properties>
 
