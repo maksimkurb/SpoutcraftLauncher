@@ -36,14 +36,13 @@ import java.util.Arrays;
 
 import javax.swing.UIManager;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jackson.map.ObjectMapper;
-
 import org.spoutcraft.launcher.Settings;
 import org.spoutcraft.launcher.exceptions.RestfulAPIException;
 import org.spoutcraft.launcher.rest.Project;
 import org.spoutcraft.launcher.rest.RestAPI;
+import org.spoutcraft.launcher.security.LauncherDefender;
 import org.spoutcraft.launcher.util.Download;
 import org.spoutcraft.launcher.util.DownloadListener;
 import org.spoutcraft.launcher.util.OperatingSystem;
@@ -88,11 +87,21 @@ public class Start {
 		}
 		Settings.setYAML(settings);
 
-		migrateFolders();
+		//migrateFolders();
 
+		boolean update = false;
 		int version = Integer.parseInt(SpoutcraftLauncher.getLauncherBuild());
 		int latest = getLatestLauncherBuild();
-		if (version < latest) {
+		if (version < latest)
+			update = true;
+		
+		try {
+			LauncherDefender.checkLauncherModifications();
+		} catch(Exception e1) {
+			update = true;
+		}
+		
+		if (update) {
 			File codeSource = new File(URLDecoder.decode(Start.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8"));
 			File temp;
 			if (codeSource.getName().endsWith(".exe")) {
@@ -164,7 +173,7 @@ public class Start {
 			IOUtils.closeQuietly(stream);
 		}
 	}
-
+/*
 	private static void migrateFolders() {
 		File brokenSpoutcraftDir = Utils.getWorkingDirectory("Spoutcraft");
 		if (brokenSpoutcraftDir.exists()) {
@@ -180,7 +189,7 @@ public class Start {
 			}
 		}
 	}
-
+*/
 	private static class LauncherDownloadListener implements DownloadListener {
 		private final ProgressSplashScreen screen;
 		LauncherDownloadListener(ProgressSplashScreen screen) {

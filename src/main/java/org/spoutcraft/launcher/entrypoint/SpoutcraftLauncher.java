@@ -53,8 +53,8 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import com.beust.jcommander.JCommander;
-import org.apache.commons.io.IOUtils;
 
+import org.apache.commons.io.IOUtils;
 import org.spoutcraft.launcher.GameUpdater;
 import org.spoutcraft.launcher.Proxy;
 import org.spoutcraft.launcher.Settings;
@@ -64,6 +64,7 @@ import org.spoutcraft.launcher.api.Launcher;
 import org.spoutcraft.launcher.api.SpoutcraftDirectories;
 import org.spoutcraft.launcher.exceptions.RestfulAPIException;
 import org.spoutcraft.launcher.rest.SpoutcraftBuild;
+import org.spoutcraft.launcher.security.LauncherDefender;
 import org.spoutcraft.launcher.skin.ConsoleFrame;
 import org.spoutcraft.launcher.skin.ErrorDialog;
 import org.spoutcraft.launcher.skin.MetroLoginFrame;
@@ -82,6 +83,7 @@ public class SpoutcraftLauncher {
 	}
 
 	public static void main(String[] args) {
+				
 		long start = System.currentTimeMillis();
 		final long startupTime = start;
 
@@ -103,6 +105,15 @@ public class SpoutcraftLauncher {
 		logger.info("Java Version: " + System.getProperty("java.vendor") + " " + System.getProperty("java.version") + " <" + System.getProperty("java.vendor.url") + ">");
 		logger.info("Launcher Build: " + launcherBuild);
 
+		logger.info("Checking launcher integrity...");
+		try {
+			LauncherDefender.checkLauncherModifications();
+		} catch(Exception e1) {
+			logger.severe("Launcher integrity checking failed!");
+			logger.info("Please REDOWNLOAD Launcher from http://cakelands.ru");
+			System.exit(1);
+		}
+		
 		params.logParameters(logger);
 
 		// Setup directories
