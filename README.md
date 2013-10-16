@@ -1,6 +1,6 @@
 Differents from original Spoutcraft Launcher
 --------------------------------------------
-[*] Added protection system by checking self jar signature. Based on certificates.
+* Added protection system by checking self jar signature. Based on certificates.
 
 Spoutcraft Launcher
 ===================
