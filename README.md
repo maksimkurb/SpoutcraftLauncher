@@ -1,3 +1,7 @@
+Differents from original Spoutcraft Launcher
+--------------------------------------------
+[*] Added protection system by checking self jar signature. Based on certificates.
+
 Spoutcraft Launcher
 ===================
 Spoutcraft Launcher is the custom launcher for installing and updating Spoutcraft with built-in byte patching for easy upgrading/downgrading of Minecraft versions.
